@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Admin · The Chapel of Faith, FUTA</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#2a0d3a">
+<link rel="icon" href="../assets/favicon.png">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+<!-- ============ LOGIN ============ -->
+<section class="login" id="loginView" hidden>
+  <div class="login-glow" aria-hidden="true"></div>
+  <form class="login-card" id="loginForm" novalidate>
+    <img src="../assets/emblem.png" alt="The Chapel of Faith, FUTA emblem" width="84" height="94">
+    <h1>Admin panel</h1>
+    <p class="muted">The Chapel of Faith, FUTA</p>
+    <label>Email<input id="lgEmail" type="email" autocomplete="username" placeholder="admin@chapel.demo"></label>
+    <label>Password<div class="pw"><input id="lgPass" type="password" autocomplete="current-password" placeholder="••••••••"><button type="button" id="pwEye" aria-label="Show password">👁</button></div></label>
+    <p class="err" id="lgErr" role="alert"></p>
+    <button class="btn gold full" type="submit" id="lgBtn">Sign in</button>
+    <button type="button" class="demo-creds" id="demoCreds" data-mode-only="mock">
+      <span class="tag">Demo login</span>
+      <b>admin@chapel.demo</b><b>demo1234</b><small>Tap to fill</small>
+    </button>
+    <p class="muted small" id="modeLine"></p>
+    <a class="back" href="../">← Back to the website</a>
+  </form>
+</section>
+
+<!-- ============ APP ============ -->
+<div class="app" id="appView" hidden>
+  <aside class="side" id="side" aria-label="Admin navigation">
+    <a class="side-brand" href="#dashboard"><img src="../assets/emblem-sm.png" alt="" width="34" height="38"><span><b>Chapel of Faith</b><small>Admin panel</small></span></a>
+    <nav id="sideNav"></nav>
+    <div class="side-foot">
+      <span class="mode-badge" id="modeBadge"></span>
+      <button class="side-link" id="logoutBtn" type="button"><i>⎋</i>Sign out</button>
+    </div>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="main">
+    <header class="top">
+      <button class="icon-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false"><i></i><i></i><i></i></button>
+      <h1 id="pageTitle">Dashboard</h1>
+      <div class="top-actions">
+        <a class="btn ghost small" href="../" target="_blank" rel="noopener" id="viewSite">View site ↗</a>
+        <div class="me" id="meChip" title="Signed in">CA</div>
+      </div>
+    </header>
+    <div class="content" id="content" tabindex="-1"></div>
+  </main>
+</div>
+
+<!-- Slide-over editor -->
+<div class="sheet" id="sheet" hidden>
+  <div class="sheet-backdrop" data-close></div>
+  <form class="sheet-card" id="sheetForm" novalidate role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+    <header><h2 id="sheetTitle">Edit</h2><button type="button" class="icon-btn" data-close aria-label="Close">✕</button></header>
+    <div class="sheet-body" id="sheetBody"></div>
+    <footer><button type="button" class="btn ghost" data-close>Cancel</button><button type="submit" class="btn gold" id="sheetSave">Save</button></footer>
+  </form>
+</div>
+
+
+<!-- Record from church sound (beta) -->
+<div class="sheet rec" id="recorder" hidden>
+  <div class="sheet-backdrop" data-rclose></div>
+  <div class="sheet-card rec-card" role="dialog" aria-modal="true" aria-labelledby="recTitle">
+    <header><h2 id="recTitle">🎙 Record from church sound <span class="badge warn">Beta</span></h2><button type="button" class="icon-btn" data-rclose aria-label="Close recorder">✕</button></header>
+    <div class="sheet-body">
+      <ol class="rec-steps">
+        <li><b>Connect an aux/USB audio interface from the mixer/amplifier REC OUT</b> to this computer or phone.</li>
+        <li><b>Choose the input.</b>
+          <div class="rec-dev"><select id="recDevice" aria-label="Audio input device"><option value="">Default input</option></select><button type="button" class="btn ghost small" id="recRefresh">↻</button></div>
+          <small class="muted" id="recDevNote">Your browser will ask permission to use the input.</small></li>
+      </ol>
+      <div class="meter" aria-hidden="true"><i id="recLevel"></i></div>
+      <div class="rec-status"><span class="rec-dot" id="recDot"></span><b id="recState">Ready</b><span id="recTime">00:00</span></div>
+      <div class="rec-btns">
+        <button type="button" class="btn gold" id="recStart">● Record</button>
+        <button type="button" class="btn ghost" id="recPause" disabled>❚❚ Pause</button>
+        <button type="button" class="btn ghost" id="recStop" disabled>■ Stop</button>
+      </div>
+      <audio id="recPreview" controls hidden></audio>
+      <label class="switch disabled" title="Coming soon"><input type="checkbox" id="recClean" disabled><span></span>Clean audio with AI <span class="badge warn">Coming soon</span></label>
+      <p class="muted small">Removes “umm/ehm”, coughs and background noise using the Chapel’s own AI model, run by the backend after upload.</p>
+    </div>
+    <footer><button type="button" class="btn ghost" data-rclose>Cancel</button><button type="button" class="btn gold" id="recSave" disabled>Save as message</button></footer>
+  </div>
+</div>
+
+<!-- Confirm dialog -->
+<div class="confirm" id="confirm" hidden>
+  <div class="confirm-card" role="alertdialog" aria-modal="true" aria-labelledby="cfTitle">
+    <h3 id="cfTitle">Are you sure?</h3><p id="cfText"></p>
+    <div class="cf-btns"><button class="btn ghost" id="cfNo" type="button">Cancel</button><button class="btn danger" id="cfYes" type="button">Delete</button></div>
+  </div>
+</div>
+
+<div class="toasts" id="toasts" aria-live="polite"></div>
+
+<script src="../config.js"></script>
+<script src="../data/seed.js"></script>
+<script src="../api.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>

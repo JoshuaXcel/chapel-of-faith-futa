@@ -1,0 +1,600 @@
+{
+  "seed_version": "2026-10-09.2",
+  "settings": {
+    "church_name": "The Chapel of Faith, FUTA",
+    "motto": "The just shall live by his faith.",
+    "motto_ref": "Habakkuk 2:4",
+    "service_times": [
+      {
+        "label": "Sunday Service",
+        "day": "Sunday",
+        "time": "09:00"
+      },
+      {
+        "label": "CYF Service",
+        "day": "Tuesday",
+        "time": "18:00"
+      },
+      {
+        "label": "Midweek Service",
+        "day": "",
+        "time": ""
+      }
+    ],
+    "venue": "Chapel of Faith Auditorium, FUTA campus",
+    "bank": {
+      "bank_name": "",
+      "account_name": "Chapel of Faith, FUTA",
+      "account_number": ""
+    },
+    "whatsapp": "",
+    "contact_email": "",
+    "contact_phone": "",
+    "livestream_url": "https://www.youtube.com/channel/UC2ZO0wK5PAPx-bOlCbN2Z7w",
+    "live_now": false,
+    "live_title": "Sunday Service · Praise & Worship",
+    "socials": {
+      "facebook": "https://www.facebook.com/thechapeloffaithfuta/",
+      "instagram": "https://www.instagram.com/thechapeloffaithfuta/",
+      "youtube": "https://www.youtube.com/channel/UC2ZO0wK5PAPx-bOlCbN2Z7w"
+    },
+    "paystack_public_key": ""
+  },
+  "chaplaincy": {
+    "chaplain": {
+      "name": "Very Rev. Chris Godspower",
+      "title": "Chaplain",
+      "photo": "",
+      "bio": "",
+      "phone": "",
+      "email": "",
+      "office_hours": ""
+    },
+    "assistant_chaplain": {
+      "name": "",
+      "title": "Assistant Chaplain",
+      "photo": "",
+      "bio": "",
+      "phone": "",
+      "email": "",
+      "office_hours": ""
+    },
+    "secretary": {
+      "name": "",
+      "title": "Chaplaincy Secretary",
+      "photo": "",
+      "bio": "",
+      "phone": "",
+      "email": "",
+      "office_hours": ""
+    }
+  },
+  "elders": [
+    {
+      "id": 1,
+      "name": "",
+      "role": "Chairman",
+      "portfolio": "Chapel Council",
+      "department": "",
+      "phone": "",
+      "email": "",
+      "photo": "",
+      "bio": "",
+      "order": 1
+    },
+    {
+      "id": 2,
+      "name": "",
+      "role": "Vice Chairman",
+      "portfolio": "Chapel Council",
+      "department": "",
+      "phone": "",
+      "email": "",
+      "photo": "",
+      "bio": "",
+      "order": 2
+    },
+    {
+      "id": 3,
+      "name": "",
+      "role": "Secretary",
+      "portfolio": "Council of Elders",
+      "department": "",
+      "phone": "",
+      "email": "",
+      "photo": "",
+      "bio": "",
+      "order": 3
+    },
+    {
+      "id": 4,
+      "name": "",
+      "role": "Treasurer",
+      "portfolio": "Finance",
+      "department": "",
+      "phone": "",
+      "email": "",
+      "photo": "",
+      "bio": "",
+      "order": 4
+    },
+    {
+      "id": 5,
+      "name": "",
+      "role": "Elder",
+      "portfolio": "Welfare",
+      "department": "",
+      "phone": "",
+      "email": "",
+      "photo": "",
+      "bio": "",
+      "order": 5
+    },
+    {
+      "id": 6,
+      "name": "",
+      "role": "Elder",
+      "portfolio": "Youth & CYF",
+      "department": "",
+      "phone": "",
+      "email": "",
+      "photo": "",
+      "bio": "",
+      "order": 6
+    },
+    {
+      "id": 7,
+      "name": "",
+      "role": "Elder",
+      "portfolio": "Prayer & Counselling",
+      "department": "",
+      "phone": "",
+      "email": "",
+      "photo": "",
+      "bio": "",
+      "order": 7
+    },
+    {
+      "id": 8,
+      "name": "",
+      "role": "Elder",
+      "portfolio": "Ushering & Protocol",
+      "department": "",
+      "phone": "",
+      "email": "",
+      "photo": "",
+      "bio": "",
+      "order": 8
+    }
+  ],
+  "cyf": {
+    "about": "The youth arm of the Chapel of Faith, FUTA: students growing in faith, gifts and friendship.",
+    "meetings": [
+      {
+        "day": "Tuesdays",
+        "time": "6:00 PM",
+        "label": "CYF Service"
+      },
+      {
+        "day": "Sundays",
+        "time": "9:00 AM",
+        "label": "With the Chapel"
+      },
+      {
+        "day": "",
+        "time": "",
+        "label": "Bible study"
+      }
+    ],
+    "venue": "Chapel of Faith Auditorium, FUTA",
+    "instagram": "https://www.instagram.com/cyf.futa/",
+    "youtube": "https://www.youtube.com/@cyffuta"
+  },
+  "cyf-leaders": [
+    {
+      "id": 1,
+      "role": "President",
+      "name": "",
+      "department": "",
+      "level": "",
+      "phone": "",
+      "photo": "",
+      "order": 1
+    },
+    {
+      "id": 2,
+      "role": "Vice President",
+      "name": "",
+      "department": "",
+      "level": "",
+      "phone": "",
+      "photo": "",
+      "order": 2
+    },
+    {
+      "id": 3,
+      "role": "General Secretary",
+      "name": "",
+      "department": "",
+      "level": "",
+      "phone": "",
+      "photo": "",
+      "order": 3
+    },
+    {
+      "id": 4,
+      "role": "Financial Secretary",
+      "name": "",
+      "department": "",
+      "level": "",
+      "phone": "",
+      "photo": "",
+      "order": 4
+    },
+    {
+      "id": 5,
+      "role": "Music Director",
+      "name": "",
+      "department": "",
+      "level": "",
+      "phone": "",
+      "photo": "",
+      "order": 5
+    },
+    {
+      "id": 6,
+      "role": "Prayer Secretary",
+      "name": "",
+      "department": "",
+      "level": "",
+      "phone": "",
+      "photo": "",
+      "order": 6
+    }
+  ],
+  "messages": [
+    {
+      "id": 1,
+      "title": "View Your Work as a Divine Assignment",
+      "preacher": "The Chaplain",
+      "date": "2026-10-04",
+      "series": "Campus & Calling",
+      "media_type": "audio",
+      "media_url": "",
+      "thumbnail": "",
+      "description": "",
+      "published": true
+    },
+    {
+      "id": 2,
+      "title": "The Just Shall Live by Faith",
+      "preacher": "",
+      "date": "2026-09-27",
+      "series": "Living by Faith",
+      "media_type": "audio",
+      "media_url": "",
+      "thumbnail": "",
+      "description": "",
+      "published": true
+    },
+    {
+      "id": 3,
+      "title": "Faith That Works on Campus",
+      "preacher": "",
+      "date": "2026-09-20",
+      "series": "Campus & Calling",
+      "media_type": "video",
+      "media_url": "",
+      "thumbnail": "",
+      "description": "",
+      "published": true
+    },
+    {
+      "id": 4,
+      "title": "Faith for the Waiting Season",
+      "preacher": "",
+      "date": "2026-09-13",
+      "series": "Living by Faith",
+      "media_type": "audio",
+      "media_url": "",
+      "thumbnail": "",
+      "description": "",
+      "published": true
+    },
+    {
+      "id": 5,
+      "title": "Praying Without Ceasing",
+      "preacher": "",
+      "date": "2026-09-06",
+      "series": "Prayer",
+      "media_type": "video",
+      "media_url": "",
+      "thumbnail": "",
+      "description": "",
+      "published": true
+    },
+    {
+      "id": 6,
+      "title": "The Prayer of Faith",
+      "preacher": "",
+      "date": "2026-08-30",
+      "series": "Prayer",
+      "media_type": "audio",
+      "media_url": "",
+      "thumbnail": "",
+      "description": "",
+      "published": true
+    }
+  ],
+  "events": [
+    {
+      "id": 1,
+      "title": "Freshers’ Welcome Service",
+      "starts_at": "2026-10-18T09:00",
+      "ends_at": "2026-10-18T12:00",
+      "venue": "Chapel of Faith Auditorium",
+      "description": "A special Sunday to welcome new students to the Chapel family. Sample event: edit it in Admin → Events.",
+      "banner": "assets/gallery/photo-05.jpg",
+      "is_special": true,
+      "is_featured": true
+    },
+    {
+      "id": 2,
+      "title": "CYF Praise Night",
+      "starts_at": "2026-10-27T18:00",
+      "ends_at": "2026-10-27T21:00",
+      "venue": "Chapel of Faith Auditorium",
+      "description": "An evening of worship led by the CYF choir. Sample event.",
+      "banner": "assets/gallery/photo-04.jpg",
+      "is_special": false,
+      "is_featured": true
+    },
+    {
+      "id": 3,
+      "title": "Carol Service",
+      "starts_at": "2026-12-13T17:00",
+      "ends_at": "2026-12-13T20:00",
+      "venue": "Chapel of Faith Auditorium",
+      "description": "Nine lessons and carols. Date to be confirmed.",
+      "banner": "assets/gallery/photo-06.jpg",
+      "is_special": true,
+      "is_featured": false
+    }
+  ],
+  "devotions": [
+    {
+      "id": 1,
+      "date": "2026-10-05",
+      "title": "Faith for Monday mornings",
+      "scripture_ref": "Habakkuk 2:4",
+      "scripture_text": "Behold, his soul which is lifted up is not upright in him: but the just shall live by his faith.",
+      "body": "Faith is not only for Sunday. It is for the 8 AM lecture, the lab report due at midnight, the long queue at the bursary. To live by faith is to carry God into ordinary hours: to work honestly, to rest without guilt, and to trust that the One who called you to this campus will finish what He started.\n\nToday, pick one ordinary task and offer it to God before you begin it.",
+      "author": "The Chaplaincy",
+      "status": "published"
+    },
+    {
+      "id": 2,
+      "date": "2026-10-06",
+      "title": "A lamp, not a floodlight",
+      "scripture_ref": "Psalm 119:105",
+      "scripture_text": "Thy word is a lamp unto my feet, and a light unto my path.",
+      "body": "A lamp shows the next step, not the whole road. Many of us want the full map of our lives: the course, the job, the spouse, the city. God often gives a lamp instead, enough light for today’s obedience.\n\nRead one chapter slowly today and ask: what is the next step this lights up for me?",
+      "author": "The Chaplaincy",
+      "status": "published"
+    },
+    {
+      "id": 3,
+      "date": "2026-10-07",
+      "title": "Strength for the stretch",
+      "scripture_ref": "Philippians 4:13",
+      "scripture_text": "I can do all things through Christ which strengtheneth me.",
+      "body": "Paul wrote this from prison, about learning to be content in plenty and in want. It is not a promise that every exam will be easy; it is a promise that Christ is enough in every season.\n\nName the hardest thing on your list this week, and pray over it by name.",
+      "author": "The Chaplaincy",
+      "status": "published"
+    },
+    {
+      "id": 4,
+      "date": "2026-10-08",
+      "title": "Not alone in the crowd",
+      "scripture_ref": "Hebrews 10:25",
+      "scripture_text": "Not forsaking the assembling of ourselves together, as the manner of some is; but exhorting one another.",
+      "body": "A big campus can be a lonely place. God’s answer to loneliness is a family: people who notice when you are missing and pray when you are weary.\n\nSend a message today to someone you haven’t seen at service in a while. A single line can be the exhortation they need.",
+      "author": "The Chaplaincy",
+      "status": "published"
+    }
+  ],
+  "subscribers": [
+    {
+      "id": 1,
+      "name": "Demo Subscriber",
+      "email": "demo.one@example.com",
+      "whatsapp": "",
+      "channel": "email",
+      "active": true,
+      "created_at": "2026-10-06T07:12:00"
+    },
+    {
+      "id": 2,
+      "name": "Sample Student",
+      "email": "sample.student@example.com",
+      "whatsapp": "+2348000000000",
+      "channel": "whatsapp",
+      "active": true,
+      "created_at": "2026-10-07T19:40:00"
+    },
+    {
+      "id": 3,
+      "name": "Test Reader",
+      "email": "test.reader@example.com",
+      "whatsapp": "",
+      "channel": "email",
+      "active": true,
+      "created_at": "2026-10-08T21:05:00"
+    }
+  ],
+  "gallery": [
+    {
+      "id": 1,
+      "src": "assets/gallery/photo-01.jpg",
+      "caption": "Sunday worship",
+      "order": 1
+    },
+    {
+      "id": 2,
+      "src": "assets/gallery/photo-02.jpg",
+      "caption": "The Chapel choir",
+      "order": 2
+    },
+    {
+      "id": 3,
+      "src": "assets/gallery/photo-03.jpg",
+      "caption": "In the Word",
+      "order": 3
+    },
+    {
+      "id": 4,
+      "src": "assets/gallery/photo-04.jpg",
+      "caption": "Praise and worship",
+      "order": 4
+    },
+    {
+      "id": 5,
+      "src": "assets/gallery/photo-05.jpg",
+      "caption": "Freshers find their way home",
+      "order": 5
+    },
+    {
+      "id": 6,
+      "src": "assets/gallery/photo-06.jpg",
+      "caption": "Evening of prayer",
+      "order": 6
+    },
+    {
+      "id": 7,
+      "src": "assets/gallery/photo-07.jpg",
+      "caption": "Your photo here",
+      "order": 7
+    },
+    {
+      "id": 8,
+      "src": "assets/gallery/photo-08.jpg",
+      "caption": "Your photo here",
+      "order": 8
+    }
+  ],
+  "hymns": [
+    {
+      "id": 1,
+      "number": 1,
+      "title": "Amazing Grace",
+      "author": "John Newton, 1779",
+      "verses": [
+        "Amazing grace! how sweet the sound\nThat saved a wretch like me!\nI once was lost, but now am found,\nWas blind, but now I see.",
+        "’Twas grace that taught my heart to fear,\nAnd grace my fears relieved;\nHow precious did that grace appear\nThe hour I first believed!",
+        "Through many dangers, toils and snares,\nI have already come;\n’Tis grace hath brought me safe thus far,\nAnd grace will lead me home.",
+        "When we’ve been there ten thousand years,\nBright shining as the sun,\nWe’ve no less days to sing God’s praise\nThan when we’d first begun."
+      ],
+      "chorus": ""
+    },
+    {
+      "id": 2,
+      "number": 2,
+      "title": "Blessed Assurance",
+      "author": "Fanny J. Crosby, 1873",
+      "verses": [
+        "Blessed assurance, Jesus is mine!\nO what a foretaste of glory divine!\nHeir of salvation, purchase of God,\nBorn of His Spirit, washed in His blood.",
+        "Perfect submission, perfect delight,\nVisions of rapture now burst on my sight;\nAngels descending bring from above\nEchoes of mercy, whispers of love.",
+        "Perfect submission, all is at rest,\nI in my Saviour am happy and blest,\nWatching and waiting, looking above,\nFilled with His goodness, lost in His love."
+      ],
+      "chorus": "This is my story, this is my song,\nPraising my Saviour all the day long;\nThis is my story, this is my song,\nPraising my Saviour all the day long."
+    },
+    {
+      "id": 3,
+      "number": 3,
+      "title": "To God Be the Glory",
+      "author": "Fanny J. Crosby, 1875",
+      "verses": [
+        "To God be the glory, great things He hath done;\nSo loved He the world that He gave us His Son,\nWho yielded His life an atonement for sin,\nAnd opened the life-gate that all may go in.",
+        "O perfect redemption, the purchase of blood,\nTo every believer the promise of God;\nThe vilest offender who truly believes,\nThat moment from Jesus a pardon receives.",
+        "Great things He hath taught us, great things He hath done,\nAnd great our rejoicing through Jesus the Son;\nBut purer, and higher, and greater will be\nOur wonder, our transport, when Jesus we see."
+      ],
+      "chorus": "Praise the Lord, praise the Lord,\nLet the earth hear His voice!\nPraise the Lord, praise the Lord,\nLet the people rejoice!\nO come to the Father, through Jesus the Son,\nAnd give Him the glory, great things He hath done."
+    },
+    {
+      "id": 4,
+      "number": 4,
+      "title": "What a Friend We Have in Jesus",
+      "author": "Joseph M. Scriven, 1855",
+      "verses": [
+        "What a friend we have in Jesus,\nAll our sins and griefs to bear!\nWhat a privilege to carry\nEverything to God in prayer!\nO what peace we often forfeit,\nO what needless pain we bear,\nAll because we do not carry\nEverything to God in prayer!",
+        "Have we trials and temptations?\nIs there trouble anywhere?\nWe should never be discouraged;\nTake it to the Lord in prayer.\nCan we find a friend so faithful\nWho will all our sorrows share?\nJesus knows our every weakness;\nTake it to the Lord in prayer.",
+        "Are we weak and heavy laden,\nCumbered with a load of care?\nPrecious Saviour, still our refuge;\nTake it to the Lord in prayer.\nDo thy friends despise, forsake thee?\nTake it to the Lord in prayer!\nIn His arms He’ll take and shield thee;\nThou wilt find a solace there."
+      ],
+      "chorus": ""
+    },
+    {
+      "id": 5,
+      "number": 5,
+      "title": "Holy, Holy, Holy",
+      "author": "Reginald Heber, 1826",
+      "verses": [
+        "Holy, holy, holy! Lord God Almighty!\nEarly in the morning our song shall rise to Thee;\nHoly, holy, holy, merciful and mighty!\nGod in three Persons, blessed Trinity!",
+        "Holy, holy, holy! All the saints adore Thee,\nCasting down their golden crowns around the glassy sea;\nCherubim and seraphim falling down before Thee,\nWhich wert, and art, and evermore shalt be.",
+        "Holy, holy, holy! though the darkness hide Thee,\nThough the eye of sinful man Thy glory may not see;\nOnly Thou art holy; there is none beside Thee,\nPerfect in power, in love, and purity.",
+        "Holy, holy, holy! Lord God Almighty!\nAll Thy works shall praise Thy name, in earth, and sky, and sea;\nHoly, holy, holy; merciful and mighty!\nGod in three Persons, blessed Trinity!"
+      ],
+      "chorus": ""
+    },
+    {
+      "id": 6,
+      "number": 6,
+      "title": "It Is Well with My Soul",
+      "author": "Horatio G. Spafford, 1873",
+      "verses": [
+        "When peace, like a river, attendeth my way,\nWhen sorrows like sea billows roll;\nWhatever my lot, Thou hast taught me to say,\nIt is well, it is well with my soul.",
+        "Though Satan should buffet, though trials should come,\nLet this blest assurance control,\nThat Christ has regarded my helpless estate,\nAnd hath shed His own blood for my soul.",
+        "My sin, oh, the bliss of this glorious thought!\nMy sin, not in part but the whole,\nIs nailed to the cross, and I bear it no more,\nPraise the Lord, praise the Lord, O my soul!",
+        "And Lord, haste the day when my faith shall be sight,\nThe clouds be rolled back as a scroll;\nThe trump shall resound, and the Lord shall descend,\nEven so, it is well with my soul."
+      ],
+      "chorus": "It is well with my soul,\nIt is well, it is well with my soul."
+    },
+    {
+      "id": 7,
+      "number": 7,
+      "title": "Rock of Ages",
+      "author": "Augustus M. Toplady, 1763",
+      "verses": [
+        "Rock of Ages, cleft for me,\nLet me hide myself in Thee;\nLet the water and the blood,\nFrom Thy riven side which flowed,\nBe of sin the double cure,\nSave from wrath and make me pure.",
+        "Not the labours of my hands\nCan fulfil Thy law’s demands;\nCould my zeal no respite know,\nCould my tears for ever flow,\nAll for sin could not atone;\nThou must save, and Thou alone.",
+        "Nothing in my hand I bring,\nSimply to Thy cross I cling;\nNaked, come to Thee for dress;\nHelpless, look to Thee for grace;\nFoul, I to the fountain fly;\nWash me, Saviour, or I die."
+      ],
+      "chorus": ""
+    }
+  ],
+  "prayer-requests": [
+    {
+      "id": 1,
+      "name": "Anonymous",
+      "request": "Please pray for my exams next week. (Sample request)",
+      "share_with_team": false,
+      "status": "new",
+      "created_at": "2026-10-08T22:14:00"
+    }
+  ],
+  "counselling-bookings": [
+    {
+      "id": 1,
+      "name": "Anonymous",
+      "anonymous": true,
+      "topic": "Academic stress",
+      "preferred_date": "2026-10-12",
+      "preferred_time": "Afternoon",
+      "mode": "In person",
+      "note": "Sample booking",
+      "status": "new",
+      "created_at": "2026-10-08T16:30:00"
+    }
+  ],
+  "cyf-applications": [],
+  "donations": []
+}

@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Chapel of Faith, FUTA · Interdenominational Chapel, Akure</title>
+<meta name="description" content="The Chapel of Faith is the interdenominational chapel of the Federal University of Technology, Akure (FUTA). Sunday service 9:00 AM. Watch live, give online, send a prayer request.">
+<meta name="theme-color" content="#3a1556">
+<link rel="icon" href="assets/favicon.png">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="loader" id="loader" aria-hidden="true"><img src="assets/emblem.png" alt="" width="150" height="168"><p>The Chapel of Faith</p><i></i></div>
+
+<!-- ============ NAV ============ -->
+<header class="nav" id="nav">
+  <a class="brand" href="#top" aria-label="The Chapel of Faith, FUTA home">
+    <img src="assets/emblem-sm.png" alt="" width="40" height="45">
+    <span><b>The Chapel of Faith</b><small>FUTA · Akure</small></span>
+  </a>
+  <nav class="links" id="navLinks" aria-label="Main">
+    <a href="#devotion">Devotion</a>
+    <a href="#live">Watch Live</a>
+    <a href="#messages">Messages</a>
+    <a href="#hymns">Hymn Book</a>
+    <a href="#chaplaincy">Chaplaincy</a>
+    <a href="#cyf">CYF</a>
+    <a href="#counselling">Counselling</a>
+    <a href="#prayer">Prayer</a>
+    <a href="#giving" class="nav-give">Give</a>
+  </nav>
+  <div class="nav-actions">
+    <button class="icon-btn" id="themeToggle" aria-label="Switch light/dark mode"><span class="sun">☀</span><span class="moon">☾</span></button>
+    <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false"><i></i><i></i><i></i></button>
+  </div>
+</header>
+
+<main id="main">
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="hero-slides" id="heroSlides" aria-hidden="true"></div>
+  <div class="hero-shade" aria-hidden="true"></div>
+  <div class="rays" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="glow" aria-hidden="true"></div>
+  <canvas id="motes" aria-hidden="true"></canvas>
+  <svg class="chapel-art" viewBox="0 0 600 260" aria-hidden="true">
+    <defs><linearGradient id="cg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3c969" stop-opacity=".55"/><stop offset="1" stop-color="#f3c969" stop-opacity="0"/></linearGradient></defs>
+    <path d="M300 18 v38 M286 34 h28" stroke="#f3c969" stroke-width="4" stroke-linecap="round" fill="none"/>
+    <path d="M300 64 L210 150 L210 260 L390 260 L390 150 Z" fill="none" stroke="url(#cg)" stroke-width="2"/>
+    <path d="M60 260 L60 190 L150 140 L240 190 L240 260 M360 260 L360 190 L450 140 L540 190 L540 260" fill="none" stroke="url(#cg)" stroke-width="1.5"/>
+    <path d="M276 260 v-58 a24 24 0 0 1 48 0 v58" fill="url(#cg)" opacity=".7"/>
+    <circle cx="300" cy="140" r="16" fill="none" stroke="url(#cg)" stroke-width="2"/>
+  </svg>
+  <div class="hero-inner">
+    <p class="eyebrow reveal">Interdenominational · Federal University of Technology, Akure</p>
+    <h1 class="reveal">Welcome home to<br><em>The Chapel of Faith</em></h1>
+    <p class="motto reveal" id="heroMotto"></p>
+    <div class="times reveal" id="heroTimes"></div>
+    <div class="countdown reveal" id="countdown" aria-live="polite">
+      <p class="cd-label" id="cdLabel">Next Sunday service begins in</p>
+      <div class="cd-grid">
+        <div><b id="cdD">0</b><span>days</span></div>
+        <div><b id="cdH">00</b><span>hours</span></div>
+        <div><b id="cdM">00</b><span>mins</span></div>
+        <div><b id="cdS">00</b><span>secs</span></div>
+      </div>
+    </div>
+    <div class="cta reveal">
+      <button class="btn gold" id="planVisitBtn">Plan a visit</button>
+      <a class="btn ghost" href="#live">Watch live</a>
+    </div>
+  </div>
+  <div class="slide-cap" id="slideCap" aria-hidden="true"><span id="slideCapText"></span><div class="slide-dots" id="slideDots"></div></div>
+  <a class="scroll-cue" href="#scripture" aria-label="Scroll down"><span></span></a>
+</section>
+
+<!-- ============ SPECIAL EVENTS (shown when an event is flagged special) ============ -->
+<section class="specials" id="specials" hidden aria-label="Special events">
+  <div class="wrap">
+    <div class="specials-head"><p class="kicker">✦ Special events</p><div class="sp-nav"><button class="icon-btn" id="spPrev" aria-label="Previous special event">‹</button><button class="icon-btn" id="spNext" aria-label="Next special event">›</button></div></div>
+    <div class="sp-track" id="spTrack"></div>
+  </div>
+</section>
+
+<!-- ============ SCRIPTURE OF THE DAY ============ -->
+<section class="scripture" id="scripture" aria-label="Scripture of the day">
+  <div class="wrap">
+    <p class="kicker">Scripture of the day</p>
+    <blockquote id="verse"><p id="verseText">The LORD is my shepherd; I shall not want.</p><cite id="verseRef">Psalm 23:1</cite></blockquote>
+    <div class="dots" id="verseDots" role="tablist" aria-label="Choose scripture"></div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="section" id="about">
+  <div class="wrap two">
+    <div class="reveal">
+      <p class="kicker">About the Chapel</p>
+      <h2>One family of faith, <em>many traditions</em></h2>
+      <p>The Chapel of Faith, FUTA is the interdenominational church of the Federal University of Technology, Akure. Students, staff and families from every Christian background worship here together, on campus, as one body.</p>
+      <p>Founded in 1984, the Chapel marked 40 years of worship in 2024. It is a place to pray between lectures, to find community far from home, and to grow in faith through every season of university life.</p>
+      <div class="stats">
+        <div><b data-count="1984">0</b><span>Founded</span></div>
+        <div><b data-count="40" data-suffix="+">0</b><span>Years of worship</span></div>
+        <div><b>1</b><span>Body in Christ</span></div>
+      </div>
+    </div>
+    <div class="about-card reveal">
+      <img src="assets/emblem.png" alt="The Chapel of Faith, FUTA emblem: a cross over an open Bible, Habakkuk 2:4" width="170" height="191">
+      <h3>“The just shall live by his faith”</h3>
+      <p>Habakkuk 2:4, the motto on the Chapel’s crest.</p>
+      <ul class="pills"><li>Interdenominational</li><li>FUTA campus</li><li>All are welcome</li></ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOME GALLERY (photos from assets/gallery/ + Admin → Gallery) ============ -->
+<section class="section gallery-sec" id="gallery">
+  <div class="wrap">
+    <div class="head reveal">
+      <p class="kicker">Our Chapel family</p>
+      <h2>Faces of <em>faith</em></h2>
+      <p>Moments from worship, fellowship and service on campus.</p>
+    </div>
+    <div class="gallery reveal" id="galleryGrid"></div>
+  </div>
+</section>
+
+<!-- ============ DAILY DEVOTION ============ -->
+<section class="section alt devotion" id="devotion">
+  <div class="wrap two">
+    <article class="dev-card reveal" id="devCard" aria-live="polite">
+      <p class="dev-date" id="devDate">Today’s devotion</p>
+      <h3 id="devTitle">Loading…</h3>
+      <blockquote class="dev-verse"><p id="devVerse"></p><cite id="devRef"></cite></blockquote>
+      <div class="dev-body" id="devBody"></div>
+      <p class="dev-author" id="devAuthor"></p>
+      <div class="row-btns"><button class="btn small ghost" id="devArchiveBtn" type="button">Past devotions</button><button class="btn small ghost" id="devShareBtn" type="button">Share</button></div>
+    </article>
+    <div class="reveal">
+      <p class="kicker">Daily devotion</p>
+      <h2>Start every day <em>in the Word</em></h2>
+      <p>A short reading, a verse and a prayer from the Chaplaincy, delivered every morning.</p>
+      <form class="card form" id="subForm" novalidate>
+        <h3>Get it every morning</h3>
+        <label>Name<input id="subName" autocomplete="name" placeholder="Your name"></label>
+        <label>Email<input id="subEmail" type="email" autocomplete="email" placeholder="you@example.com"></label>
+        <label>WhatsApp number <small>(optional)</small><input id="subPhone" inputmode="tel" autocomplete="tel" placeholder="e.g. 0803 000 0000"></label>
+        <fieldset><legend>Send it to me by</legend>
+          <div class="seg" id="subChannel">
+            <button type="button" data-v="email" class="on">Email</button>
+            <button type="button" data-v="whatsapp">WhatsApp</button>
+            <button type="button" data-v="both">Both</button>
+          </div>
+        </fieldset>
+        <button class="btn gold full" type="submit">Subscribe</button>
+        <p class="muted small-t">Unsubscribe any time from the link in every message.</p>
+        <div class="done" hidden><span>📖</span><b>You’re subscribed!</b><p id="subDoneText">Your first devotion arrives tomorrow morning.</p></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WATCH LIVE ============ -->
+<section class="section alt" id="live">
+  <div class="wrap">
+    <div class="head reveal">
+      <p class="kicker">Watch Live</p>
+      <h2>Worship with us <em>from anywhere</em></h2>
+      <p>Join the Sunday service and special programmes live, wherever you are.</p>
+    </div>
+    <div class="player reveal" id="player" data-live="false">
+      <div class="player-screen">
+        <div class="live-badge" id="liveBadge"><i></i>LIVE</div>
+        <div class="viewers" id="viewers">● 248 watching</div>
+        <!-- DEMO: the real stream is the church's YouTube Live (or Facebook Live) embed, e.g.
+             <iframe src="https://www.youtube.com/embed/live_stream?channel=UC2ZO0wK5PAPx-bOlCbN2Z7w" allowfullscreen></iframe>
+             This frame stands in for it. -->
+        <div class="offair" id="offAir">
+          <span class="play-ring">▶</span>
+          <p>Stream starts in</p>
+          <b id="streamCd">0d 00:00:00</b>
+          <small id="streamNext">Sunday Service · 9:00 AM</small>
+        </div>
+        <div class="onair" id="onAir">
+          <div class="onair-art"><span></span><span></span><span></span></div>
+          <p id="onAirTitle"><b>Sunday Service</b></p>
+        </div>
+      </div>
+      <div class="player-bar">
+        <span class="live-state" id="liveState">Off air · next service soon</span>
+        <a class="btn small ghost" id="ytLink" href="https://www.youtube.com/channel/UC2ZO0wK5PAPx-bOlCbN2Z7w" target="_blank" rel="noopener">Open on YouTube</a>
+      </div>
+    </div>
+    <h3 class="sub reveal">Past streams</h3>
+    <div class="past reveal">
+      <a class="past-card" href="https://www.youtube.com/channel/UC2ZO0wK5PAPx-bOlCbN2Z7w" target="_blank" rel="noopener"><div class="thumb t1">▶</div><b>Prayer &amp; Praise Independence Service</b><span>1 Oct 2026</span></a>
+      <a class="past-card" href="https://www.youtube.com/channel/UC2ZO0wK5PAPx-bOlCbN2Z7w" target="_blank" rel="noopener"><div class="thumb t2">▶</div><b>A Documentary of Chapel of Faith: 1984–2024</b><span>40 years</span></a>
+      <a class="past-card" href="https://www.youtube.com/channel/UC2ZO0wK5PAPx-bOlCbN2Z7w" target="_blank" rel="noopener"><div class="thumb t3">▶</div><b>Sunday Service</b><span>Replay</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MESSAGES LIBRARY ============ -->
+<section class="section" id="messages">
+  <div class="wrap">
+    <div class="head reveal">
+      <p class="kicker">Messages</p>
+      <h2>Sermon <em>library</em></h2>
+      <p>Listen again, catch up on a series, or download a message for the road.</p>
+    </div>
+    <div class="lib-tools reveal">
+      <input type="search" id="msgSearch" placeholder="Search messages…" aria-label="Search messages">
+      <div class="chips" id="seriesChips"></div>
+    </div>
+    <div class="msg-list" id="msgList"></div>
+    <p class="empty" id="msgEmpty" hidden>No messages match that search.</p>
+    <!-- Mini player -->
+    <div class="mini-player" id="miniPlayer" hidden>
+      <button class="mp-play" id="mpPlay" aria-label="Play/pause">❚❚</button>
+      <div class="mp-info"><b id="mpTitle">Message</b><span id="mpMeta">Preacher</span>
+        <div class="mp-bar" id="mpBar"><i id="mpFill"></i></div></div>
+      <span class="mp-time" id="mpTime">0:00</span>
+      <button class="mp-x" id="mpClose" aria-label="Close player">✕</button>
+    </div>
+    <audio id="audio" src="assets/media/sample-message.mp3" preload="metadata"></audio>
+    <div class="admin reveal">
+      <div><span class="tag">Media team</span><b>New message?</b> Upload it in the Admin panel and it appears here.</div>
+      <a class="btn small gold" href="admin/#messages">Upload in Admin</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HYMN BOOK ============ -->
+<section class="section alt" id="hymns">
+  <div class="wrap">
+    <div class="head reveal">
+      <p class="kicker">Hymn Book</p>
+      <h2>Sing along, <em>every verse</em></h2>
+      <p>Search by number or title and follow the words during service.</p>
+    </div>
+    <div class="lib-tools reveal">
+      <input type="search" id="hymnSearch" placeholder="Hymn number or title, e.g. 4" aria-label="Search hymns" inputmode="search">
+    </div>
+    <ol class="hymn-list reveal" id="hymnList"></ol>
+    <div class="admin reveal">
+      <div><span class="tag">Admin</span><b>Have the full Chapel hymnal?</b> Add hymns in the Admin panel.</div>
+      <a class="btn small gold" href="admin/#hymns">Manage hymns</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHAPLAINCY ============ -->
+<section class="section" id="chaplaincy">
+  <div class="wrap">
+    <div class="head reveal">
+      <p class="kicker">Chaplaincy</p>
+      <h2>Shepherding the <em>campus</em></h2>
+    </div>
+    <div class="chaplain reveal">
+      <button class="chap-card" id="chaplainCard" aria-label="Open the Chaplain's profile"></button>
+      <div class="contact-card" id="chapContact"></div>
+    </div>
+    <div class="assist reveal" id="chapAssist"></div>
+  </div>
+</section>
+
+<!-- ============ ELDERS ============ -->
+<section class="section alt" id="elders">
+  <div class="wrap">
+    <div class="head reveal">
+      <p class="kicker">Council of Elders</p>
+      <h2>Serving with <em>wisdom</em></h2>
+      <p>Tap an elder to see their role and how to reach them.</p>
+    </div>
+    <div class="elders reveal" id="eldersGrid"></div>
+  </div>
+</section>
+
+<!-- ============ CYF ============ -->
+<section class="section cyf" id="cyf">
+  <div class="wrap">
+    <div class="head reveal">
+      <p class="kicker">CYF · Chapel Youth Fellowship</p>
+      <h2>Together we <em>shall stand</em></h2>
+      <p id="cyfAbout"></p>
+    </div>
+    <h3 class="sub reveal">CYF leadership</h3>
+    <div class="leaders reveal" id="cyfLeaders"></div>
+    <div class="cyf-grid">
+      <div class="cyf-times reveal">
+        <div id="cyfMeetings"></div>
+        <p class="muted small-t" id="cyfVenue"></p>
+        <div class="acts">
+          <span>📖 Bible study</span><span>🎵 Choir &amp; music</span><span>🎭 Drama</span><span>🤝 Outreach</span><span>🙏 Prayer</span><span>⚽ Socials</span>
+        </div>
+        <div class="row-btns">
+          <a class="btn small ghost" id="cyfIg" href="https://www.instagram.com/cyf.futa/" target="_blank" rel="noopener">@cyf.futa</a>
+          <a class="btn small ghost" id="cyfYt" href="https://www.youtube.com/@cyffuta" target="_blank" rel="noopener">CYF on YouTube</a>
+        </div>
+      </div>
+      <form class="card form reveal" id="cyfForm" novalidate>
+        <h3>Join CYF</h3>
+        <label>Full name<input id="cyfName" required autocomplete="name" placeholder="Your name"></label>
+        <div class="split">
+          <label>Department<input id="cyfDept" placeholder="e.g. Computer Science"></label>
+          <label>Level<select id="cyfLevel"><option>100L</option><option>200L</option><option>300L</option><option>400L</option><option>500L</option><option>PG</option></select></label>
+        </div>
+        <label>WhatsApp number<input id="cyfPhone" inputmode="tel" placeholder="080…"></label>
+        <fieldset><legend>I’d love to serve in</legend>
+          <div class="checks">
+            <label><input type="checkbox" value="Choir"> Choir</label>
+            <label><input type="checkbox" value="Media"> Media</label>
+            <label><input type="checkbox" value="Drama"> Drama</label>
+            <label><input type="checkbox" value="Ushering"> Ushering</label>
+            <label><input type="checkbox" value="Prayer"> Prayer</label>
+            <label><input type="checkbox" value="Evangelism"> Evangelism</label>
+          </div>
+        </fieldset>
+        <button class="btn gold full" type="submit">I’m interested</button>
+        <div class="done" hidden><span>🎉</span><b>Welcome to the family!</b><p>A CYF leader will reach out on WhatsApp this week.</p></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COUNSELLING ============ -->
+<section class="section alt" id="counselling">
+  <div class="wrap two">
+    <div class="reveal">
+      <p class="kicker">Counselling</p>
+      <h2>You don’t have to <em>carry it alone</em></h2>
+      <p>The Chaplaincy offers a listening ear and godly counsel for students and staff, in person or by phone.</p>
+      <ul class="offers">
+        <li>Spiritual guidance &amp; prayer</li>
+        <li>Academic stress &amp; exam anxiety</li>
+        <li>Relationships, courtship &amp; marriage</li>
+        <li>Grief, loss &amp; family matters</li>
+        <li>Career &amp; life direction</li>
+      </ul>
+      <div class="confid"><b>🔒 Confidential</b><p>What you share stays between you and your counsellor. You may book anonymously. If you are in danger right now, contact campus security or the FUTA Health Centre immediately.</p></div>
+    </div>
+    <form class="card form reveal" id="counselForm" novalidate>
+      <h3>Book a session</h3>
+      <label class="switch"><input type="checkbox" id="anonToggle"><span></span> Book anonymously</label>
+      <label id="cNameWrap">Your name<input id="cName" autocomplete="name" placeholder="Your name"></label>
+      <label>Area<select id="cTopic"><option>Spiritual guidance</option><option>Academic stress</option><option>Relationships</option><option>Grief &amp; family</option><option>Career</option><option>Something else</option></select></label>
+      <div class="split">
+        <label>Preferred date<input type="date" id="cDate"></label>
+        <label>Session type<select id="cMode"><option>In person</option><option>Phone call</option><option>WhatsApp</option></select></label>
+      </div>
+      <fieldset><legend>Preferred time</legend>
+        <div class="seg" id="timeSeg">
+          <button type="button" data-v="Morning">Morning</button>
+          <button type="button" data-v="Afternoon" class="on">Afternoon</button>
+          <button type="button" data-v="Evening">Evening</button>
+        </div>
+      </fieldset>
+      <label>Anything you’d like us to know? <small>(optional)</small><textarea id="cNote" rows="2" placeholder="A few words, only if you want to"></textarea></label>
+      <button class="btn gold full" type="submit">Request session</button>
+      <div class="done" hidden><span>🕊️</span><b>Session requested</b><p id="counselDoneText">The Chaplaincy will confirm your slot.</p></div>
+    </form>
+  </div>
+</section>
+
+<!-- ============ GIVING ============ -->
+<section class="section giving" id="giving">
+  <div class="wrap two">
+    <div class="reveal">
+      <p class="kicker">Give online</p>
+      <h2>Give <em>cheerfully</em></h2>
+      <p>“Every man according as he purposeth in his heart, so let him give… for God loveth a cheerful giver.” <span class="muted">2 Corinthians 9:7</span></p>
+    </div>
+    <form class="card form give-card reveal" id="giveForm" novalidate>
+      <div class="tabs" role="tablist" id="giveTabs">
+        <button type="button" role="tab" class="on" data-type="Tithe">Tithe</button>
+        <button type="button" role="tab" data-type="Offering">Offering</button>
+        <button type="button" role="tab" data-type="Gift">Gifts</button>
+        <button type="button" role="tab" data-type="Building fund">Building</button>
+      </div>
+      <p class="tab-note" id="giveNote">Your tithe, the first fruit of your increase.</p>
+      <div class="amounts" id="amounts">
+        <button type="button" data-a="1000">₦1,000</button>
+        <button type="button" data-a="5000" class="on">₦5,000</button>
+        <button type="button" data-a="10000">₦10,000</button>
+        <button type="button" data-a="custom">Custom</button>
+      </div>
+      <label id="customWrap" hidden>Amount (₦)<input id="customAmt" inputmode="numeric" placeholder="e.g. 2500"></label>
+      <label>Full name<input id="gName" autocomplete="name" placeholder="Your name"></label>
+      <label>Email for receipt<input id="gEmail" type="email" autocomplete="email" placeholder="you@example.com"></label>
+      <button class="btn gold full big" type="submit" id="giveBtn">Give ₦5,000 now</button>
+      <p class="secure">🔒 Secured by Paystack · cards, transfer, USSD <span class="demo-pill">Demo</span></p>
+    </form>
+      <div class="bank reveal">
+        <h4>Prefer a bank transfer?</h4>
+        <ul id="bankList"></ul>
+        <p class="muted small-t" id="bankNote"></p>
+      </div>
+  </div>
+</section>
+
+<!-- ============ PRAYER ============ -->
+<section class="section alt" id="prayer">
+  <div class="wrap two">
+    <div class="reveal">
+      <p class="kicker">Prayer requests</p>
+      <h2>Let us <em>pray with you</em></h2>
+      <p>“Is any among you afflicted? let him pray.” <span class="muted">James 5:13</span></p>
+      <p>Your request goes straight to the Chaplain. Choose whether it stays private or is shared with the prayer team.</p>
+    </div>
+    <form class="card form reveal" id="prayerForm" novalidate>
+      <h3>Send a prayer request</h3>
+      <label>Name <small>(optional)</small><input id="pName" placeholder="Leave blank to stay anonymous"></label>
+      <label>Your request<textarea id="pText" rows="4" required placeholder="Share what’s on your heart…"></textarea></label>
+      <label class="switch"><input type="checkbox" id="pShare"><span></span> <span id="pShareLabel">Keep private (Chaplain only)</span></label>
+      <button class="btn gold full" type="submit">Send to the Chaplain</button>
+      <div class="done" hidden><span>🙏</span><b>Sent to the Chaplain</b><p id="prayerDoneText">We are standing with you in prayer.</p><a id="mailtoLink" class="muted small-t" href="#">Or send it from your email app →</a></div>
+    </form>
+  </div>
+</section>
+
+<!-- ============ EVENTS ============ -->
+<section class="section" id="events">
+  <div class="wrap">
+    <div class="head reveal">
+      <p class="kicker">Events &amp; announcements</p>
+      <h2>What’s <em>coming up</em></h2>
+    </div>
+    <div class="events reveal" id="eventsList"></div>
+  </div>
+</section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer" id="visit">
+  <div class="wrap foot-grid">
+    <div>
+      <img class="lockup" src="assets/lockup-white.png" alt="The Chapel of Faith, Federal University of Technology, Akure" width="340" height="82">
+      <p class="muted">The interdenominational chapel of FUTA. All are welcome.</p>
+      <div class="socials">
+        <a href="https://www.facebook.com/thechapeloffaithfuta/" target="_blank" rel="noopener" aria-label="Facebook">f</a>
+        <a href="https://www.instagram.com/thechapeloffaithfuta/" target="_blank" rel="noopener" aria-label="Instagram">◎</a>
+        <a href="https://www.youtube.com/channel/UC2ZO0wK5PAPx-bOlCbN2Z7w" target="_blank" rel="noopener" aria-label="YouTube">▶</a>
+        <a href="#" id="waLink" aria-label="WhatsApp (number to be added)">✆</a>
+      </div>
+      <a class="app-link" href="https://play.google.com/store/apps/details?id=com.chapeloffaith.chapel_of_faith_app" target="_blank" rel="noopener">Get the Chapel of Faith app on Google Play</a>
+    </div>
+    <div>
+      <h4>Find us</h4>
+      <a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Chapel+of+Faith+FUTA+Akure" target="_blank" rel="noopener">
+        <div class="map-art" aria-hidden="true"><i class="pin"></i></div>
+        <span>Chapel of Faith, FUTA campus<br>Federal University of Technology, Akure, Ondo State<br><b>Open in Maps →</b></span>
+      </a>
+    </div>
+    <div>
+      <h4>Service times</h4>
+      <ul class="foot-times" id="footTimes"></ul>
+      <h4>Quick links</h4>
+      <ul class="foot-links"><li><a href="#giving">Give online</a></li><li><a href="#prayer">Prayer request</a></li><li><a href="#counselling">Counselling</a></li><li><a href="#hymns">Hymn Book</a></li><li><a href="#events">Events</a></li><li><a href="#devotion">Daily devotion</a></li><li><a href="admin/">Admin login</a></li></ul>
+    </div>
+  </div>
+  <p class="copy wrap">© <span id="yr">2026</span> The Chapel of Faith, FUTA · Concept site. Items in <span class="ph">dashed gold</span> are placeholders to confirm.</p>
+</footer>
+
+<button class="to-top" id="toTop" aria-label="Back to top">↑</button>
+
+<!-- ============ MODALS ============ -->
+<div class="modal" id="modal" hidden>
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-x" data-close aria-label="Close">✕</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<!-- Paystack-style checkout (DEMO, no real keys, no charge) -->
+<div class="pay" id="pay" hidden>
+  <div class="pay-backdrop"></div>
+  <div class="pay-card" role="dialog" aria-modal="true" aria-label="Payment checkout demo">
+    <div class="pay-test">TEST MODE · Demo checkout · no real charge</div>
+    <div class="pay-head">
+      <img src="assets/emblem-sm.png" alt="" width="36" height="40">
+      <div><b>The Chapel of Faith, FUTA</b><span id="payEmail">you@example.com</span></div>
+      <div class="pay-amt"><small>Pay</small><b id="payAmt">NGN 5,000</b></div>
+      <button class="pay-x" id="payClose" aria-label="Cancel payment">✕</button>
+    </div>
+    <div class="pay-body">
+      <aside class="pay-methods" id="payMethods">
+        <button class="on" data-m="card">💳 Card</button>
+        <button data-m="transfer">🏦 Transfer</button>
+        <button data-m="ussd">#️⃣ USSD</button>
+      </aside>
+      <div class="pay-main">
+        <div class="pay-step" id="stepCard">
+          <p class="pay-hint">Enter your card details to pay</p>
+          <label>Card number<input id="cardNo" inputmode="numeric" value="4084 0840 8408 4081" aria-label="Card number"></label>
+          <div class="split"><label>Expiry<input value="12 / 30" aria-label="Expiry"></label><label>CVV<input value="408" aria-label="CVV"></label></div>
+          <button class="pay-btn" id="payBtn">Pay NGN 5,000</button>
+          <p class="pay-note">Test card shown. Nothing is charged in this demo.</p>
+        </div>
+        <div class="pay-step" id="stepTransfer" hidden>
+          <p class="pay-hint">Transfer to this account (demo)</p>
+          <div class="pay-acct"><span>Demo Bank</span><b>99 1234 5678</b><small>Expires in 30:00</small></div>
+          <button class="pay-btn" data-paid>I’ve sent the money</button>
+        </div>
+        <div class="pay-step" id="stepUssd" hidden>
+          <p class="pay-hint">Dial on your phone (demo)</p>
+          <div class="pay-acct"><b>*737*000*5000#</b><small>Choose your bank’s code</small></div>
+          <button class="pay-btn" data-paid>I’ve completed the payment</button>
+        </div>
+        <div class="pay-step center" id="stepProc" hidden><div class="spinner"></div><p>Processing payment…</p></div>
+        <div class="pay-step center" id="stepDone" hidden>
+          <div class="tick">✓</div>
+          <h3>Payment successful</h3>
+          <p class="muted">Thank you! God bless you.</p>
+          <div class="receipt" id="receipt"></div>
+          <button class="pay-btn" id="payFinish">Done</button>
+        </div>
+      </div>
+    </div>
+    <p class="pay-foot">🔒 Secured by <b>paystack</b> (demo)</p>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="config.js"></script>
+<script src="data/seed.js"></script>
+<script src="api.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

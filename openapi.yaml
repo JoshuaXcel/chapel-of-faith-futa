@@ -1,0 +1,2705 @@
+openapi: 3.0.3
+info:
+  title: The Chapel of Faith, FUTA · Website API
+  version: 1.0.0
+  description: Contract between the static website/admin panel (api.js) and the FastAPI backend. See API.md for notes. All JSON, UTF-8. Times
+    are Africa/Lagos.
+servers:
+- url: https://api.chapeloffaithfuta.org/api/v1
+  description: example production
+- url: http://localhost:8000/api/v1
+  description: local uvicorn
+tags:
+- name: auth
+- name: uploads
+- name: settings
+- name: chaplaincy
+- name: elders
+- name: cyf
+- name: messages
+- name: events
+- name: devotions
+- name: subscribers
+- name: gallery
+- name: hymns
+- name: prayer-requests
+- name: counselling-bookings
+- name: giving
+- name: stats
+- name: jobs
+paths:
+  /auth/login:
+    post:
+      summary: Log in, get a JWT
+      tags:
+      - auth
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+  /auth/me:
+    get:
+      summary: Current admin user
+      tags:
+      - auth
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: &id001
+      - bearerAuth: []
+  /uploads:
+    post:
+      summary: Upload an image, audio or video file (multipart). Returns its public URL.
+      tags:
+      - uploads
+      security: *id001
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                kind:
+                  type: string
+                  enum:
+                  - avatar
+                  - image
+                  - gallery
+                  - media
+                  - file
+              required:
+              - file
+      responses:
+        '201':
+          description: Stored
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Upload'
+        '413':
+          description: File too large
+        '415':
+          description: Unsupported type
+  /settings:
+    get:
+      summary: Get settings
+      tags:
+      - settings
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Settings'
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: 'Update settings (merge: send only the keys that changed)'
+      tags:
+      - settings
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Settings'
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Settings'
+  /chaplaincy:
+    get:
+      summary: Get chaplaincy
+      tags:
+      - chaplaincy
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Chaplaincy'
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: 'Update chaplaincy (merge: send only the keys that changed)'
+      tags:
+      - chaplaincy
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Chaplaincy'
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Chaplaincy'
+  /cyf:
+    get:
+      summary: Get cyf
+      tags:
+      - cyf
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cyf'
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: 'Update cyf (merge: send only the keys that changed)'
+      tags:
+      - cyf
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cyf'
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cyf'
+  /elders:
+    get:
+      summary: List elders
+      tags:
+      - elders
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ElderPage'
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - &id003
+        name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: 1-based, default 1
+      - &id004
+        name: page_size
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: default 20, max 100
+      - &id005
+        name: q
+        in: query
+        required: false
+        schema:
+          type: string
+        description: free-text search
+    post:
+      summary: Create Elder
+      tags:
+      - elders
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Elder'
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Elder'
+  /elders/{id}:
+    get:
+      summary: Get one Elder
+      tags:
+      - elders
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Elder'
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters: &id002
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: ''
+    put:
+      summary: Update Elder (partial updates accepted)
+      tags:
+      - elders
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Elder'
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Elder'
+      parameters: *id002
+    delete:
+      summary: Delete Elder
+      tags:
+      - elders
+      responses:
+        '204':
+          description: OK
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      parameters: *id002
+  /elders/order:
+    put:
+      summary: 'Reorder elders: ids in display order'
+      tags:
+      - elders
+      responses:
+        '204':
+          description: OK
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Reorder'
+  /cyf/leaders:
+    get:
+      summary: List CYF leaders
+      tags:
+      - cyf
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CyfLeaderPage'
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - *id003
+      - *id004
+      - *id005
+    post:
+      summary: Create CyfLeader
+      tags:
+      - cyf
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CyfLeader'
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CyfLeader'
+  /cyf/leaders/{id}:
+    get:
+      summary: Get one CyfLeader
+      tags:
+      - cyf
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CyfLeader'
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters: *id002
+    put:
+      summary: Update CyfLeader (partial updates accepted)
+      tags:
+      - cyf
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CyfLeader'
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CyfLeader'
+      parameters: *id002
+    delete:
+      summary: Delete CyfLeader
+      tags:
+      - cyf
+      responses:
+        '204':
+          description: OK
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      parameters: *id002
+  /cyf/leaders/order:
+    put:
+      summary: 'Reorder CYF leaders: ids in display order'
+      tags:
+      - cyf
+      responses:
+        '204':
+          description: OK
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Reorder'
+  /cyf/applications:
+    get:
+      summary: List CYF join requests
+      tags:
+      - cyf
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CyfApplicationPage'
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      parameters:
+      - *id003
+      - *id004
+      - *id005
+    post:
+      summary: Create CyfApplication
+      tags:
+      - cyf
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CyfApplication'
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CyfApplication'
+  /cyf/applications/{id}:
+    get:
+      summary: Get one CyfApplication
+      tags:
+      - cyf
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CyfApplication'
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      parameters: *id002
+    put:
+      summary: Update CyfApplication (partial updates accepted)
+      tags:
+      - cyf
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CyfApplication'
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CyfApplication'
+      parameters: *id002
+    delete:
+      summary: Delete CyfApplication
+      tags:
+      - cyf
+      responses:
+        '204':
+          description: OK
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      parameters: *id002
+  /messages:
+    get:
+      summary: List messages
+      tags:
+      - messages
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessagePage'
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - *id003
+      - *id004
+      - *id005
+      - name: published
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: public site sends true; admin sees all only with a token
+      - name: series
+        in: query
+        required: false
+        schema:
+          type: string
+        description: ''
+    post:
+      summary: Create Message
+      tags:
+      - messages
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Message'
+  /messages/recordings:
+    post:
+      summary: Upload a recording made in Admin → Messages → Record (beta). Creates a draft message. Declare this route BEFORE /messages/{id}
+        in FastAPI.
+      tags:
+      - messages
+      security: *id001
+      parameters:
+      - name: Upload-Id
+        in: header
+        required: false
+        schema:
+          type: string
+        description: 'Optional chunked upload: same id on every chunk'
+      - name: Content-Range
+        in: header
+        required: false
+        schema:
+          type: string
+        description: bytes start-end/total for chunked upload; final chunk returns 201
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                title:
+                  type: string
+                preacher:
+                  type: string
+                date:
+                  type: string
+                  format: date
+                series:
+                  type: string
+                duration_seconds:
+                  type: number
+                device_label:
+                  type: string
+              required:
+              - file
+      responses:
+        '201':
+          description: Draft message created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        '202':
+          description: Chunk accepted (chunked mode)
+        '413':
+          description: Too large
+  /messages/{id}:
+    get:
+      summary: Get one Message
+      tags:
+      - messages
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters: *id002
+    put:
+      summary: Update Message (partial updates accepted)
+      tags:
+      - messages
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Message'
+      parameters: *id002
+    delete:
+      summary: Delete Message
+      tags:
+      - messages
+      responses:
+        '204':
+          description: OK
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      parameters: *id002
+  /events:
+    get:
+      summary: List events
+      tags:
+      - events
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventPage'
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - *id003
+      - *id004
+      - *id005
+      - name: upcoming
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: ''
+      - name: special
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: ''
+      - name: featured
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: ''
+    post:
+      summary: Create Event
+      tags:
+      - events
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
+  /events/{id}:
+    get:
+      summary: Get one Event
+      tags:
+      - events
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters: *id002
+    put:
+      summary: Update Event (partial updates accepted)
+      tags:
+      - events
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
+      parameters: *id002
+    delete:
+      summary: Delete Event
+      tags:
+      - events
+      responses:
+        '204':
+          description: OK
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      parameters: *id002
+  /devotions:
+    get:
+      summary: List devotions
+      tags:
+      - devotions
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DevotionPage'
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - *id003
+      - *id004
+      - *id005
+      - name: published
+        in: query
+        required: false
+        schema:
+          type: boolean
+        description: status != draft AND date <= today
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+        description: ''
+    post:
+      summary: Create Devotion
+      tags:
+      - devotions
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Devotion'
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Devotion'
+  /devotions/{id}:
+    get:
+      summary: Get one Devotion
+      tags:
+      - devotions
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Devotion'
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters: *id002
+    put:
+      summary: Update Devotion (partial updates accepted)
+      tags:
+      - devotions
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Devotion'
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Devotion'
+      parameters: *id002
+    delete:
+      summary: Delete Devotion
+      tags:
+      - devotions
+      responses:
+        '204':
+          description: OK
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      parameters: *id002
+  /devotions/today:
+    get:
+      summary: Today's devotion (or the latest published one); 204 when none
+      tags:
+      - devotions
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Devotion'
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /subscribers:
+    get:
+      summary: List subscribers
+      tags:
+      - subscribers
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriberPage'
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      parameters:
+      - *id003
+      - *id004
+      - *id005
+    post:
+      summary: Subscribe to the daily devotion (public). Same email again = reactivate, returns 200.
+      tags:
+      - subscribers
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscriber'
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubscribeRequest'
+  /subscribers/{id}:
+    get:
+      summary: Get one Subscriber
+      tags:
+      - subscribers
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscriber'
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      parameters: *id002
+    put:
+      summary: Update Subscriber (partial updates accepted)
+      tags:
+      - subscribers
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscriber'
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Subscriber'
+      parameters: *id002
+    delete:
+      summary: Delete Subscriber
+      tags:
+      - subscribers
+      responses:
+        '204':
+          description: OK
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      parameters: *id002
+  /subscribers/export.csv:
+    get:
+      summary: Export subscribers as CSV
+      tags:
+      - subscribers
+      security: *id001
+      responses:
+        '200':
+          description: CSV
+          content:
+            text/csv:
+              schema:
+                type: string
+  /subscribers/unsubscribe:
+    post:
+      summary: Unsubscribe with the signed token from the email/WhatsApp footer
+      tags:
+      - subscribers
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+              required:
+              - token
+  /gallery:
+    get:
+      summary: List gallery
+      tags:
+      - gallery
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GalleryPhotoPage'
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - *id003
+      - *id004
+      - *id005
+    post:
+      summary: Create GalleryPhoto
+      tags:
+      - gallery
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GalleryPhoto'
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GalleryPhoto'
+  /gallery/{id}:
+    get:
+      summary: Get one GalleryPhoto
+      tags:
+      - gallery
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GalleryPhoto'
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters: *id002
+    put:
+      summary: Update GalleryPhoto (partial updates accepted)
+      tags:
+      - gallery
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GalleryPhoto'
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GalleryPhoto'
+      parameters: *id002
+    delete:
+      summary: Delete GalleryPhoto
+      tags:
+      - gallery
+      responses:
+        '204':
+          description: OK
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      parameters: *id002
+  /gallery/order:
+    put:
+      summary: 'Reorder gallery: ids in display order'
+      tags:
+      - gallery
+      responses:
+        '204':
+          description: OK
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Reorder'
+  /hymns:
+    get:
+      summary: List hymns
+      tags:
+      - hymns
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HymnPage'
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - *id003
+      - *id004
+      - *id005
+    post:
+      summary: Create Hymn
+      tags:
+      - hymns
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hymn'
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Hymn'
+  /hymns/{id}:
+    get:
+      summary: Get one Hymn
+      tags:
+      - hymns
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hymn'
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters: *id002
+    put:
+      summary: Update Hymn (partial updates accepted)
+      tags:
+      - hymns
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hymn'
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Hymn'
+      parameters: *id002
+    delete:
+      summary: Delete Hymn
+      tags:
+      - hymns
+      responses:
+        '204':
+          description: OK
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      parameters: *id002
+  /prayer-requests:
+    get:
+      summary: List prayer-requests
+      tags:
+      - prayer-requests
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrayerRequestPage'
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      parameters:
+      - *id003
+      - *id004
+      - *id005
+    post:
+      summary: Create PrayerRequest
+      tags:
+      - prayer-requests
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrayerRequest'
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PrayerRequest'
+  /prayer-requests/{id}:
+    get:
+      summary: Get one PrayerRequest
+      tags:
+      - prayer-requests
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrayerRequest'
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      parameters: *id002
+    put:
+      summary: Update PrayerRequest (partial updates accepted)
+      tags:
+      - prayer-requests
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrayerRequest'
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PrayerRequest'
+      parameters: *id002
+    delete:
+      summary: Delete PrayerRequest
+      tags:
+      - prayer-requests
+      responses:
+        '204':
+          description: OK
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      parameters: *id002
+  /counselling-bookings:
+    get:
+      summary: List counselling-bookings
+      tags:
+      - counselling-bookings
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CounsellingBookingPage'
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      parameters:
+      - *id003
+      - *id004
+      - *id005
+    post:
+      summary: Create CounsellingBooking
+      tags:
+      - counselling-bookings
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CounsellingBooking'
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CounsellingBooking'
+  /counselling-bookings/{id}:
+    get:
+      summary: Get one CounsellingBooking
+      tags:
+      - counselling-bookings
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CounsellingBooking'
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      parameters: *id002
+    put:
+      summary: Update CounsellingBooking (partial updates accepted)
+      tags:
+      - counselling-bookings
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CounsellingBooking'
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CounsellingBooking'
+      parameters: *id002
+    delete:
+      summary: Delete CounsellingBooking
+      tags:
+      - counselling-bookings
+      responses:
+        '204':
+          description: OK
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      parameters: *id002
+  /giving/initialize:
+    post:
+      summary: Start a Paystack transaction (server calls Paystack /transaction/initialize with the SECRET key)
+      tags:
+      - giving
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GiveInitResponse'
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GiveInit'
+  /giving/verify/{reference}:
+    get:
+      summary: Verify a payment by reference (server calls Paystack /transaction/verify)
+      tags:
+      - giving
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Donation'
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: reference
+        in: path
+        required: true
+        schema:
+          type: string
+        description: ''
+  /giving/webhook:
+    post:
+      summary: Paystack webhook. Verify x-paystack-signature = HMAC-SHA512(raw body, SECRET key) before trusting it; handle charge.success idempotently
+        by reference.
+      tags:
+      - giving
+      parameters:
+      - name: x-paystack-signature
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Acknowledged
+        '401':
+          description: Bad signature
+  /giving/transactions:
+    get:
+      summary: List gifts (admin)
+      tags:
+      - giving
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DonationPage'
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      parameters:
+      - *id003
+      - *id004
+      - *id005
+      - name: purpose
+        in: query
+        required: false
+        schema:
+          type: string
+        description: ''
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+        description: ''
+  /stats:
+    get:
+      summary: Dashboard counts
+      tags:
+      - stats
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stats'
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+  /messages/{id}/clean:
+    post:
+      summary: Queue AI clean-up (filler words 'umm/ehm', coughs, noise) with Excel's own model. Returns a job.
+      tags:
+      - messages
+      responses:
+        '202':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CleanRequest'
+      parameters: *id002
+  /jobs/{id}:
+    get:
+      summary: Poll a background job
+      tags:
+      - jobs
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+        '401':
+          description: Missing/invalid token
+        '422':
+          description: Validation error (FastAPI)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: *id001
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: ''
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Error:
+      type: object
+      properties:
+        detail:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: object
+    LoginRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+      required:
+      - email
+      - password
+    Token:
+      type: object
+      properties:
+        access_token:
+          type: string
+        token_type:
+          type: string
+          example: bearer
+        user:
+          $ref: '#/components/schemas/User'
+      required:
+      - access_token
+      - token_type
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        role:
+          type: string
+          enum:
+          - admin
+          - editor
+          - media
+    Upload:
+      type: object
+      properties:
+        url:
+          type: string
+        content_type:
+          type: string
+        size:
+          type: integer
+      required:
+      - url
+    Person:
+      type: object
+      properties:
+        name:
+          type: string
+        title:
+          type: string
+        photo: &id006
+          type: string
+          description: URL returned by POST /uploads (or any https URL)
+          nullable: true
+        bio:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        office_hours:
+          type: string
+    Chaplaincy:
+      type: object
+      properties:
+        chaplain:
+          $ref: '#/components/schemas/Person'
+        assistant_chaplain:
+          $ref: '#/components/schemas/Person'
+        secretary:
+          $ref: '#/components/schemas/Person'
+    Elder:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+        role:
+          type: string
+        portfolio:
+          type: string
+        department:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        photo: *id006
+        bio:
+          type: string
+        order:
+          type: integer
+      required:
+      - name
+    CyfMeeting:
+      type: object
+      properties:
+        label:
+          type: string
+        day:
+          type: string
+        time:
+          type: string
+    Cyf:
+      type: object
+      properties:
+        about:
+          type: string
+        venue:
+          type: string
+        instagram:
+          type: string
+        youtube:
+          type: string
+        meetings:
+          type: array
+          items:
+            $ref: '#/components/schemas/CyfMeeting'
+    CyfLeader:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+        role:
+          type: string
+        department:
+          type: string
+        level:
+          type: string
+        phone:
+          type: string
+        photo: *id006
+        order:
+          type: integer
+      required:
+      - name
+      - role
+    CyfApplication:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+        department:
+          type: string
+        level:
+          type: string
+        whatsapp:
+          type: string
+        interests:
+          type: array
+          items:
+            type: string
+        status:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - name
+    Message:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+        preacher:
+          type: string
+        date:
+          type: string
+          format: date
+        series:
+          type: string
+        media_type:
+          type: string
+          enum:
+          - audio
+          - video
+          - youtube
+          - mixlr
+        media_url:
+          type: string
+        thumbnail: *id006
+        description:
+          type: string
+        published:
+          type: boolean
+      required:
+      - title
+      - media_type
+    Event:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+        starts_at:
+          type: string
+          format: date-time
+          description: Local Africa/Lagos time, e.g. 2026-10-18T09:00
+        ends_at:
+          type: string
+          format: date-time
+          nullable: true
+        venue:
+          type: string
+        description:
+          type: string
+        banner: *id006
+        is_special:
+          type: boolean
+        is_featured:
+          type: boolean
+      required:
+      - title
+      - starts_at
+    Devotion:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        date:
+          type: string
+          format: date
+        title:
+          type: string
+        scripture_ref:
+          type: string
+        scripture_text:
+          type: string
+        body:
+          type: string
+        author:
+          type: string
+        status:
+          type: string
+          enum:
+          - draft
+          - scheduled
+          - published
+      required:
+      - date
+      - title
+      - body
+    SubscribeRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        whatsapp:
+          type: string
+          description: E.164 preferred, e.g. +2348031234567
+        channel:
+          type: string
+          enum:
+          - email
+          - whatsapp
+          - both
+      required:
+      - channel
+    Subscriber:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+        email:
+          type: string
+        whatsapp:
+          type: string
+        channel:
+          type: string
+          enum:
+          - email
+          - whatsapp
+          - both
+        active:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+    GalleryPhoto:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        src:
+          type: string
+        caption:
+          type: string
+        order:
+          type: integer
+      required:
+      - src
+    Hymn:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        number:
+          type: integer
+        title:
+          type: string
+        author:
+          type: string
+        verses:
+          type: array
+          items:
+            type: string
+        chorus:
+          type: string
+      required:
+      - number
+      - title
+    ServiceTime:
+      type: object
+      properties:
+        label:
+          type: string
+        day:
+          type: string
+          enum:
+          - ''
+          - Sunday
+          - Monday
+          - Tuesday
+          - Wednesday
+          - Thursday
+          - Friday
+          - Saturday
+        time:
+          type: string
+          example: 09:00
+    Settings:
+      type: object
+      properties:
+        church_name:
+          type: string
+        motto:
+          type: string
+        motto_ref:
+          type: string
+        service_times:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServiceTime'
+        venue:
+          type: string
+        bank:
+          type: object
+          properties:
+            bank_name:
+              type: string
+            account_name:
+              type: string
+            account_number:
+              type: string
+        whatsapp:
+          type: string
+        contact_email:
+          type: string
+        contact_phone:
+          type: string
+        livestream_url:
+          type: string
+        live_now:
+          type: boolean
+        live_title:
+          type: string
+        socials:
+          type: object
+          properties:
+            facebook:
+              type: string
+            instagram:
+              type: string
+            youtube:
+              type: string
+        paystack_public_key:
+          type: string
+    PrayerRequest:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+        request:
+          type: string
+        share_with_team:
+          type: boolean
+        status:
+          type: string
+          enum:
+          - new
+          - praying
+          - answered
+          - archived
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - request
+    CounsellingBooking:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        reference:
+          type: string
+        name:
+          type: string
+        anonymous:
+          type: boolean
+        topic:
+          type: string
+        preferred_date:
+          type: string
+          format: date
+        preferred_time:
+          type: string
+          enum:
+          - Morning
+          - Afternoon
+          - Evening
+        mode:
+          type: string
+        note:
+          type: string
+        status:
+          type: string
+          enum:
+          - new
+          - confirmed
+          - done
+          - cancelled
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - topic
+    GiveInit:
+      type: object
+      properties:
+        purpose:
+          type: string
+          enum:
+          - Tithe
+          - Offering
+          - Gift
+          - Building fund
+        amount:
+          type: integer
+          description: Naira (whole). Backend multiplies by 100 for Paystack kobo.
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+      required:
+      - purpose
+      - amount
+      - email
+    GiveInitResponse:
+      type: object
+      properties:
+        authorization_url:
+          type: string
+        access_code:
+          type: string
+        reference:
+          type: string
+    Donation:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        reference:
+          type: string
+        purpose:
+          type: string
+        amount:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+        channel:
+          type: string
+        status:
+          type: string
+          enum:
+          - pending
+          - success
+          - failed
+          - test
+        created_at:
+          type: string
+          format: date-time
+    Stats:
+      type: object
+      properties:
+        elders:
+          type: integer
+        cyf_leaders:
+          type: integer
+        messages:
+          type: integer
+        events:
+          type: integer
+        special_events:
+          type: integer
+        upcoming_events:
+          type: integer
+        devotions:
+          type: integer
+        subscribers:
+          type: integer
+        gallery:
+          type: integer
+        hymns:
+          type: integer
+        prayer_requests_new:
+          type: integer
+        counselling_new:
+          type: integer
+        donations_total:
+          type: integer
+    Reorder:
+      type: object
+      properties:
+        ids:
+          type: array
+          items:
+            type: integer
+      required:
+      - ids
+    ElderPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Elder'
+        total:
+          type: integer
+        page:
+          type: integer
+        page_size:
+          type: integer
+    CyfLeaderPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CyfLeader'
+        total:
+          type: integer
+        page:
+          type: integer
+        page_size:
+          type: integer
+    CyfApplicationPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CyfApplication'
+        total:
+          type: integer
+        page:
+          type: integer
+        page_size:
+          type: integer
+    MessagePage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+        total:
+          type: integer
+        page:
+          type: integer
+        page_size:
+          type: integer
+    EventPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event'
+        total:
+          type: integer
+        page:
+          type: integer
+        page_size:
+          type: integer
+    DevotionPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Devotion'
+        total:
+          type: integer
+        page:
+          type: integer
+        page_size:
+          type: integer
+    SubscriberPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Subscriber'
+        total:
+          type: integer
+        page:
+          type: integer
+        page_size:
+          type: integer
+    GalleryPhotoPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/GalleryPhoto'
+        total:
+          type: integer
+        page:
+          type: integer
+        page_size:
+          type: integer
+    HymnPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Hymn'
+        total:
+          type: integer
+        page:
+          type: integer
+        page_size:
+          type: integer
+    PrayerRequestPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/PrayerRequest'
+        total:
+          type: integer
+        page:
+          type: integer
+        page_size:
+          type: integer
+    CounsellingBookingPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CounsellingBooking'
+        total:
+          type: integer
+        page:
+          type: integer
+        page_size:
+          type: integer
+    DonationPage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Donation'
+        total:
+          type: integer
+        page:
+          type: integer
+        page_size:
+          type: integer
+    Job:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - clean_audio
+          - transcode
+        status:
+          type: string
+          enum:
+          - queued
+          - running
+          - succeeded
+          - failed
+        progress:
+          type: number
+          minimum: 0
+          maximum: 1
+        message_id:
+          type: integer
+        result_url:
+          type: string
+          nullable: true
+        error:
+          type: string
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+        finished_at:
+          type: string
+          format: date-time
+          nullable: true
+    CleanRequest:
+      type: object
+      properties:
+        remove_fillers:
+          type: boolean
+          default: true
+        remove_coughs:
+          type: boolean
+          default: true
+        denoise:
+          type: boolean
+          default: true
+        replace_original:
+          type: boolean
+          default: false
