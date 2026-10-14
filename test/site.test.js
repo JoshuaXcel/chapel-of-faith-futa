@@ -41,7 +41,7 @@ test('seed.json covers every resource and seed.js matches it', () => {
   const seed = JSON.parse(read('data/seed.json'));
   for (const k of ['settings', 'chaplaincy', 'elders', 'cyf', 'cyf-leaders', 'messages', 'events', 'devotions', 'subscribers', 'gallery', 'hymns', 'prayer-requests', 'counselling-bookings'])
     assert.ok(k in seed, 'seed has ' + k);
-  assert.ok(seed.events.some(e => e.is_special), 'a special event exists');
+  assert.ok(Array.isArray(seed.events), 'events is a list (real events are added in Admin → Events)');
   const ctx = { window: {} }; vm.runInNewContext(read('data/seed.js'), ctx);
   assert.strictEqual(JSON.stringify(ctx.window.COF_SEED), JSON.stringify(seed));
 });
@@ -73,4 +73,15 @@ test('contract files document every resource', () => {
   for (const p of ['/auth/login', '/chaplaincy', '/elders', '/cyf', '/messages', '/messages/recordings', '/jobs/{id}', '/events', '/devotions', '/subscribers', '/gallery', '/hymns', '/settings', '/prayer-requests', '/counselling-bookings', '/giving/webhook', '/uploads'])
     { assert.ok(md.includes(p), 'API.md has ' + p); assert.ok(y.includes(p + ':') || y.includes(p + '/'), 'openapi has ' + p); }
   assert.match(md, /x-paystack-signature/); assert.match(md, /template/i);
+});
+
+test('public page reads as a live site: no demo wording, no emoji, no fake checkout', () => {
+  for (const f of ['index.html', 'script.js', 'styles.css']) {
+    const s = read(f);
+    assert.ok(!/demo|lorem|example\.(org|com)|sample|test mode/i.test(s), f + ' has no demo/sample wording');
+    assert.ok(!/(?![\u00a9\u00ae])\p{Extended_Pictographic}/u.test(s), f + ' has no emoji (the © sign is allowed)');
+  }
+  const h = read('index.html');
+  assert.ok(!h.includes('id="pay"'), 'no simulated checkout');
+  assert.match(h, /All rights reserved/);
 });
