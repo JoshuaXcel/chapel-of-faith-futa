@@ -1,5 +1,5 @@
 {
-  "seed_version": "2026-10-09.2",
+  "seed_version": "2026-10-14.1",
   "settings": {
     "church_name": "The Chapel of Faith, FUTA",
     "motto": "The just shall live by his faith.",
@@ -326,41 +326,7 @@
       "published": true
     }
   ],
-  "events": [
-    {
-      "id": 1,
-      "title": "Freshers’ Welcome Service",
-      "starts_at": "2026-10-18T09:00",
-      "ends_at": "2026-10-18T12:00",
-      "venue": "Chapel of Faith Auditorium",
-      "description": "A special Sunday to welcome new students to the Chapel family. Sample event: edit it in Admin → Events.",
-      "banner": "assets/gallery/photo-05.jpg",
-      "is_special": true,
-      "is_featured": true
-    },
-    {
-      "id": 2,
-      "title": "CYF Praise Night",
-      "starts_at": "2026-10-27T18:00",
-      "ends_at": "2026-10-27T21:00",
-      "venue": "Chapel of Faith Auditorium",
-      "description": "An evening of worship led by the CYF choir. Sample event.",
-      "banner": "assets/gallery/photo-04.jpg",
-      "is_special": false,
-      "is_featured": true
-    },
-    {
-      "id": 3,
-      "title": "Carol Service",
-      "starts_at": "2026-12-13T17:00",
-      "ends_at": "2026-12-13T20:00",
-      "venue": "Chapel of Faith Auditorium",
-      "description": "Nine lessons and carols. Date to be confirmed.",
-      "banner": "assets/gallery/photo-06.jpg",
-      "is_special": true,
-      "is_featured": false
-    }
-  ],
+  "events": [],
   "devotions": [
     {
       "id": 1,
@@ -472,13 +438,13 @@
     {
       "id": 7,
       "src": "assets/gallery/photo-07.jpg",
-      "caption": "Your photo here",
+      "caption": "Fellowship on campus",
       "order": 7
     },
     {
       "id": 8,
       "src": "assets/gallery/photo-08.jpg",
-      "caption": "Your photo here",
+      "caption": "Serving together",
       "order": 8
     }
   ],
